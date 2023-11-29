@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Підключення Bootstrap (або використовуйте CDN) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Підключення jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        table {
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            // Додати обробник подій для таблиць
+            $('table').click(function () {
+                // Знайти tbody у межах поточної таблиці і змінити його видимість
+                $(this).find('tbody').toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="student-info">
+        <h1>Лабораторна робота 8</h1>
+        <h2>Створення застосунка Django </h2>
+        <h2>ПІБ: Бойко Віталій</h2>
+        <h2>Варіант 3</h2>
+
+        <p>Група: <span style="color: red; font-style: italic;">КН20002</span></p>
+        
+    </div>
+    <div class="container">
+        <h1>Список відділів:</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Назва відділу</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col">Номер кімнати</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for department in departament %}
+                    <tr>
+                        <th scope="row">{{ department.department_id }}</th>
+                        <td>{{ department.department_name }}</td>
+                        <td>{{ department.phone_number }}</td>
+                        <td>{{ department.room_number }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <h1>Список посад:</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Назва посади</th>
+                    <th scope="col">Зарплата</th>
+                    <th scope="col">Бонус (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for position in position %}
+                    <tr>
+                        <th scope="row">{{ position.position_id }}</th>
+                        <td>{{ position.position_name }}</td>
+                        <td>{{ position.salary }}</td>
+                        <td>{{ position.bonus_percentage }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1>Список проектів:</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Назва проекту</th>
+                    <th scope="col">Дедлайн</th>
+                    <th scope="col">Розмір фінансування</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <th scope="row">{{ project.project_id }}</th>
+                        <td>{{ project.project_name }}</td>
+                        <td>{{ project.deadline|date:"Y-m-d" }}</td>
+                        <td>{{ project.funding_size }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1>Виконання проектів:</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Проект</th>
+                    <th scope="col">Відділ</th>
+                    <th scope="col">Дата початку</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project_execution in project_executions %}
+                    <tr>
+                        <th scope="row">{{ project_execution.execution_id }}</th>
+                        <td>{{ project_execution.project.project_name }}</td>
+                        <td>{{ project_execution.department.department_name }}</td>
+                        <td>{{ project_execution.start_date|date:"Y-m-d" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1>Список співробітників:</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Прізвище</th>
+                    <th scope="col">Ім'я</th>
+                    <th scope="col">По батькові</th>
+                    <th scope="col">Адреса</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col">Освіта</th>
+                    <th scope="col">Відділ</th>
+                    <th scope="col">Посада</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                    <tr>
+                        <th scope="row">{{ employee.employee_id }}</th>
+                        <td>{{ employee.last_name }}</td>
+                        <td>{{ employee.first_name }}</td>
+                        <td>{{ employee.middle_name }}</td>
+                        <td>{{ employee.address }}</td>
+                        <td>{{ employee.phone_number }}</td>
+                        <td>{{ employee.education }}</td>
+                        <td>{{ employee.department.department_name }}</td>
+                        <td>{{ employee.position.position_name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Підключення Bootstrap (або використовуйте CDN) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

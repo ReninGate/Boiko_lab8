@@ -1,0 +1,15 @@
+version: '3.12.0'
+
+services:
+  db_lb8:
+    container_name: db_lb8
+    restart: always
+    image: postgres:16.0-alpine3.18
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db_lb8
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
